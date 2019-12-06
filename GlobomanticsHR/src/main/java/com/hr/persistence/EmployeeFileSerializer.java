@@ -2,7 +2,17 @@ package com.hr.persistence;
 
 import com.hr.personnel.Employee;
 
+/**
+ * The Class EmployeeFileSerializer.
+ */
 public class EmployeeFileSerializer {
+
+	/**
+	 * Serialize.
+	 *
+	 * @param employee the employee
+	 * @return the string
+	 */
 	public String serialize(Employee employee) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("### EMPLOYEE RECORD ####");

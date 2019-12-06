@@ -11,14 +11,28 @@ import com.hr.personnel.Employee;
 import com.hr.personnel.FullTimeEmployee;
 import com.hr.personnel.PartTimeEmployee;
 
+/**
+ * The Class EmployeeRepository.
+ */
 public class EmployeeRepository {
 
+	/** The serializer. */
 	private EmployeeFileSerializer serializer;
 
+	/**
+	 * Instantiates a new employee repository.
+	 *
+	 * @param serializer the serializer
+	 */
 	public EmployeeRepository(EmployeeFileSerializer serializer) {
 		this.serializer = serializer;
 	}
 
+	/**
+	 * Find all.
+	 *
+	 * @return the list
+	 */
 	public List<Employee> findAll() {
 		Employee anna = new FullTimeEmployee("Anna Smith", 2000);
 		Employee billy = new FullTimeEmployee("Billy Leech", 920);
@@ -29,6 +43,12 @@ public class EmployeeRepository {
 		return Arrays.asList(anna, billy, steve, magda);
 	}
 
+	/**
+	 * Save.
+	 *
+	 * @param employee the employee
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void save(Employee employee) throws IOException {
 		String serializedString = this.serializer.serialize(employee);
 

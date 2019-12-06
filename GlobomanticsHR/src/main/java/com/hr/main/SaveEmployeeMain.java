@@ -8,8 +8,16 @@ import com.hr.persistence.EmployeeFileSerializer;
 import com.hr.persistence.EmployeeRepository;
 import com.hr.personnel.Employee;
 
+/**
+ * The Class SaveEmployeeMain.
+ */
 public class SaveEmployeeMain {
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		EmployeeFileSerializer employeeFileSerializer = new EmployeeFileSerializer();
 		ConsoleLogger consileLogger = new ConsoleLogger();
