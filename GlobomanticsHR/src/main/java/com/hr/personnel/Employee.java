@@ -1,5 +1,6 @@
 package com.hr.personnel;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class Employee.
  */
@@ -30,6 +31,17 @@ public abstract class Employee {
 		this.firstName = names[0];
 		this.lastName = names[1];
 	}
+	
+	/**
+	 * Request time off.
+	 *
+	 * @param nbDays the nb days
+	 * @param manager the manager
+	 */
+	public void requestTimeOff(int nbDays, Employee manager) {
+		throw new RuntimeException("Not Implemented");
+	}
+
 
 	/**
 	 * Gets the email.
