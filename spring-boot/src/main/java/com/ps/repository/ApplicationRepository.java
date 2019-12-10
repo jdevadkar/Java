@@ -7,6 +7,6 @@ import com.ps.entity.Application;
 /**
  * The Interface ApplicationRepository.
  */
-public interface ApplicationRepository extends CrudRepository<Application, Long> {
+public interface ApplicationRepository extends CrudRepository<Application, Integer> {
 
 }

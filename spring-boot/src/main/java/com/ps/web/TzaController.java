@@ -1,10 +1,20 @@
 package com.ps.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
+import com.ps.entity.Application;
+import com.ps.entity.Ticket;
+import com.ps.exception.ApplicationNotFoundException;
 import com.ps.service.ApplicationService;
 import com.ps.service.ReleaseService;
 import com.ps.service.TicketService;
@@ -12,7 +22,8 @@ import com.ps.service.TicketService;
 /**
  * The Class TzaController.
  */
-@Controller
+@RestController
+@RequestMapping("/tza")
 public class TzaController {
 
 	/** The application service. */
@@ -61,9 +72,9 @@ public class TzaController {
 	 * @return the string
 	 */
 	@GetMapping("/applications")
-	public String retriveApplications(Model model) {
-		model.addAttribute("applications", applicationService.listApplications());
-		return "applications";
+	public ResponseEntity<List<Application>> getAllApplications() {
+		List<Application> list = (List<Application>) applicationService.listApplications();
+		return new ResponseEntity<List<Application>>(list, HttpStatus.OK);
 	}
 
 	/**
@@ -73,9 +84,9 @@ public class TzaController {
 	 * @return the string
 	 */
 	@GetMapping("/tickets")
-	public String retriveTickets(Model model) {
-		model.addAttribute("tickets", ticketService.listTickets());
-		return "tickets";
+	public ResponseEntity<List<Ticket>> getAllTickets() {
+		List<Ticket> list = (List<Ticket>) ticketService.listTickets();
+		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 
 	/**
@@ -88,5 +99,20 @@ public class TzaController {
 	public String retriveReleases(Model model) {
 		model.addAttribute("releases", releaseService.listReleases());
 		return "releases";
+	}
+
+	/**
+	 * Gets the application.
+	 *
+	 * @param id the id
+	 * @return the application
+	 */
+	@GetMapping("/application/{id}")
+	public ResponseEntity<Application> getApplication(@PathVariable("id") Integer id) {
+		try {
+			return new ResponseEntity<>(applicationService.findApplication(id), HttpStatus.OK);
+		} catch (ApplicationNotFoundException e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Application not found");
+		}
 	}
 }
