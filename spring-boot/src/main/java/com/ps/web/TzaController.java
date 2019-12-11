@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +15,6 @@ import com.ps.entity.Application;
 import com.ps.entity.Ticket;
 import com.ps.exception.ApplicationNotFoundException;
 import com.ps.service.ApplicationService;
-import com.ps.service.ReleaseService;
 import com.ps.service.TicketService;
 
 /**
@@ -31,9 +29,6 @@ public class TzaController {
 
 	/** The ticket service. */
 	private TicketService ticketService;
-
-	/** The release service. */
-	private ReleaseService releaseService;
 
 	/**
 	 * Sets the application service.
@@ -56,16 +51,6 @@ public class TzaController {
 	}
 
 	/**
-	 * Sets the release service.
-	 *
-	 * @param releaseService the new release service
-	 */
-	@Autowired
-	public void setReleaseService(ReleaseService releaseService) {
-		this.releaseService = releaseService;
-	}
-
-	/**
 	 * Retrive applications.
 	 *
 	 * @param model the model
@@ -74,7 +59,7 @@ public class TzaController {
 	@GetMapping("/applications")
 	public ResponseEntity<List<Application>> getAllApplications() {
 		List<Application> list = (List<Application>) applicationService.listApplications();
-		return new ResponseEntity<List<Application>>(list, HttpStatus.OK);
+		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 
 	/**
@@ -87,18 +72,6 @@ public class TzaController {
 	public ResponseEntity<List<Ticket>> getAllTickets() {
 		List<Ticket> list = (List<Ticket>) ticketService.listTickets();
 		return new ResponseEntity<>(list, HttpStatus.OK);
-	}
-
-	/**
-	 * Retrive releases.
-	 *
-	 * @param model the model
-	 * @return the string
-	 */
-	@GetMapping("/releases")
-	public String retriveReleases(Model model) {
-		model.addAttribute("releases", releaseService.listReleases());
-		return "releases";
 	}
 
 	/**
